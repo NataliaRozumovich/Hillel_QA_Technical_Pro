@@ -69,4 +69,6 @@ console.log(false && (false || true)); /* false -> Спочатку відбув
 false || true - > true (так як '||' повертає перше true ). Потім
  false && true  -> false (так як '&&' повертає перше false)*/
 
-console.log((+null == false) < 1 ** 5);
+console.log((+null == false) < 1 ** 5);/*  false -> спочатку дія в скобках:
++null -> 0, тобто отримуємо 0 == false -> true. Потім відбувається зведення в ступінь: 
+1 ** 5 -> 1. І на останое порівнюємо true < 1 -> false.*/
