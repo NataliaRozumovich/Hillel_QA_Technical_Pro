@@ -1,9 +1,10 @@
 "use strict";
 
 let count = 1000;
-let countEvenNumber = 0;
-let countOddNumber = 0;
+
 function generateRandomeValue(count) {
+    let countEvenNumber = 0;
+    let countOddNumber = 0;
     for (let i = 1; i <= count; i++) {
         let randomValue = Math.floor(Math.random() * 901 + 100);
         console.log(randomValue);
@@ -28,7 +29,6 @@ function generateRandomeValue(count) {
 generateRandomeValue(count);
 
 
-function checkPercentageRatio(part, total){
-    return ((part*100)/total).toFixed(2);
+function checkPercentageRatio(part, total) {
+    return ((part * 100) / total).toFixed(2);
 }
-
