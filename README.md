@@ -1,1 +1,0 @@
-# Hillel_QA_Technical_Pro
