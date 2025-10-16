@@ -1,0 +1,570 @@
+{
+	"info": {
+		"_postman_id": "69a50200-1f06-46ec-af0f-6d094066fe8c",
+		"name": "Rozumovych-homework-25_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4490689"
+	},
+	"item": [
+		{
+			"name": "Create Document",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let requestBody = JSON.parse(pm.request.body.raw);",
+							"let respBody = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Check if the response body contains _id property\", function () {",
+							"    pm.expect(respBody).to.have.property(\"_id\");",
+							"    pm.collectionVariables.set(\"docId\", respBody._id);",
+							"});",
+							"",
+							"Object.keys(requestBody).forEach(key => {",
+							"  pm.test(`Field \"${key}\" matches`, () => {",
+							"    let expected = requestBody[key];",
+							"    let actual = respBody[key]; ",
+							"    pm.expect(actual, `Value mismatch for ${key}: expected ${expected}, got ${actual}`)",
+							"      .to.eql(expected);",
+							"  });",
+							"});",
+							"",
+							"pm.test(\"createdAt has today's date\", () => {",
+							"  pm.expect(respBody).to.have.property(\"createdAt\");",
+							"  let createdAt = new Date(respBody.createdAt);",
+							"  let today = new Date();",
+							"  let createdDate = createdAt.toISOString().split(\"T\")[0];",
+							"  let currentDate = today.toISOString().split(\"T\")[0];",
+							"  pm.expect(createdDate).to.eql(currentDate);",
+							"});",
+							"",
+							"pm.collectionVariables.set(\"postWrittenData\", JSON.stringify(respBody));",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"access\": \"We are always available to help guests\",\n    \"accommodates\": 8,\n    \"address\": {\n        \"country\": \"Bulgaria\",\n        \"country_code\": \"PT\",\n        \"government_area\": \"Varna\",\n        \"location\": {\n            \"coordinates\": [\n                -8.61308,\n                41.1413\n            ],\n            \"is_location_exact\": false,\n            \"type\": \"Point\"\n        },\n        \"market\": \"Varna\",\n        \"street\": \"tsar Asen\",\n        \"suburb\": \"\"\n    },\n    \"amenities\": [\n        \"TV\",\n        \"Cable TV\",\n        \"Wifi\",\n        \"Kitchen\"\n    ],\n    \"availability\": {\n        \"availability_30\": 28,\n        \"availability_365\": 239,\n        \"availability_60\": 47,\n        \"availability_90\": 74\n    },\n    \"bathrooms\": {\n        \"$numberDecimal\": \"1.0\"\n    },\n    \"bed_type\": \"Real Bed\",\n    \"bedrooms\": 3,\n    \"beds\": 5,\n    \"calendar_last_scraped\": \"2019-02-16T05:00:00.000Z\",\n    \"cancellation_policy\": \"moderate\",\n    \"cleaning_fee\": {\n        \"$numberDecimal\": \"35.00\"\n    },\n    \"description\": \"Fantastic duplex apartment with three bedrooms\",\n    \"extra_people\": {\n        \"$numberDecimal\": \"15.00\"\n    },\n    \"first_review\": \"2016-01-03T05:00:00.000Z\",\n    \"guests_included\": {\n        \"$numberDecimal\": \"6\"\n    },\n    \"host\": {\n        \"host_about\": \"Gostamos de passear, de viajar, de conhecer pessoas e locais novos, gostamos de desporto e animais! Vivemos na cidade mais linda do mundo!!!\",\n        \"host_has_profile_pic\": true,\n        \"host_id\": \"51399391\",\n        \"host_identity_verified\": true,\n        \"host_is_superhost\": false,\n        \"host_listings_count\": 3,\n        \"host_location\": \"Porto, Porto District, Portugal\",\n        \"host_name\": \"Ana&Gonçalo\",\n        \"host_neighbourhood\": \"\",\n        \"host_picture_url\": \"https://a0.muscache.com/im/pictures/fab79f25-2e10-4f0f-9711-663cb69dc7d8.jpg?aki_policy=profile_x_medium\",\n        \"host_response_rate\": 100,\n        \"host_response_time\": \"within an hour\",\n        \"host_thumbnail_url\": \"https://a0.muscache.com/im/pictures/fab79f25-2e10-4f0f-9711-663cb69dc7d8.jpg?aki_policy=profile_small\",\n        \"host_total_listings_count\": 3,\n        \"host_url\": \"https://www.airbnb.com/users/show/51399391\",\n        \"host_verifications\": [\n            \"email\",\n            \"phone\",\n            \"reviews\",\n            \"jumio\",\n            \"offline_government_id\",\n            \"government_id\"\n        ]\n    },\n    \"house_rules\": \"Make the house your home...\",\n    \"images\": {\n        \"medium_url\": \"\",\n        \"picture_url\": \"https://a0.muscache.com/im/pictures/e83e702f-ef49-40fb-8fa0-6512d7e26e9b.jpg?aki_policy=large\",\n        \"thumbnail_url\": \"\",\n        \"xl_picture_url\": \"\"\n    },\n    \"interaction\": \"Cot - 10 € / night Dog - € 7,5 / night\",\n    \"last_review\": \"2025-01-20T05:00:00.000Z\",\n    \"last_scraped\": \"2025-02-16T05:00:00.000Z\",\n    \"listing_url\": \"https://www.airbnb.com/rooms/10006546444\",\n    \"maximum_nights\": \"30\",\n    \"minimum_nights\": \"2\",\n    \"name\": \"Nata\",\n    \"neighborhood_overview\": \"In the neighborhood of the river, you can find several restaurants as varied flavors\",\n    \"notes\": \"Come visit us and feel at home\",\n    \"number_of_reviews\": 51,\n    \"price\": {\n        \"$numberDecimal\": \"80.00\"\n    },\n    \"property_type\": \"House\",\n    \"review_scores\": {\n        \"review_scores_accuracy\": 9,\n        \"review_scores_checkin\": 10,\n        \"review_scores_cleanliness\": 9,\n        \"review_scores_communication\": 10,\n        \"review_scores_location\": 10,\n        \"review_scores_rating\": 89,\n        \"review_scores_value\": 9\n    },\n    \"reviews\": [\n        {\n            \"_id\": \"58663741\",\n            \"comments\": \"A casa da Ana e do Gonçalo foram o local escolhido para a passagem de ano com um grupo de amigos.\",\n            \"date\": \"2016-01-03T05:00:00.000Z\",\n            \"listing_id\": \"10006546\",\n            \"reviewer_id\": \"51483096\",\n            \"reviewer_name\": \"Cátia\"\n        }\n    ],\n    \"room_type\": \"Entire home/apt\",\n    \"security_deposit\": {\n        \"$numberDecimal\": \"200.00\"\n    },\n    \"space\": \"Privileged views of the Douro River and Ribeira square\",\n    \"summary\": \"Fantastic duplex apartment with three bedrooms\",\n    \"transit\": \"Transport: • Metro station and S. Bento railway 5min.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/:collection",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						":collection"
+					],
+					"variable": [
+						{
+							"key": "collection",
+							"value": "{{collectionName}}"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Find Document by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json() ",
+							"",
+							"let expectedBodyString = pm.collectionVariables.get(\"postWrittenData\");",
+							"let expectedBody = JSON.parse(expectedBodyString);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"GET response data matches the saved POST response\", function () {",
+							"    pm.expect(responseData).to.deep.equal(expectedBody);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/:collection/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						":collection",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "collection",
+							"value": "{{collectionName}}"
+						},
+						{
+							"key": "id",
+							"value": "{{docId}}"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Document",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let updatedRequestBody = JSON.parse(pm.request.body.raw);",
+							"let updatedResponseBody = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"'notes' field is updated\", function () {",
+							"    pm.expect(updatedResponseBody.notes).to.equal(updatedRequestBody.notes)",
+							"    });",
+							"",
+							"pm.test(\"Price is updated\", function () {",
+							"    pm.expect(updatedResponseBody.price.$numberDecimal).to.equal(updatedRequestBody.price.$numberDecimal)  ",
+							"});",
+							"",
+							"pm.test(\"'updatedAt' field is present\", function () {",
+							"    pm.expect(updatedResponseBody.updatedAt).to.be.a('string')",
+							"});",
+							"pm.collectionVariables.set(\"putWrittenData\", JSON.stringify(updatedResponseBody));",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					},
+					{
+						"key": "api-key",
+						"value": "{{newAPIkey}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"notes\": \"Updated Note v22\",\n    \"price\": {\n        \"$numberDecimal\": \"800.00\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/:collection/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						":collection",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "collection",
+							"value": "{{collectionName}}"
+						},
+						{
+							"key": "id",
+							"value": "{{docId}}"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Find Document by id after update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let respBody = pm.response.json()",
+							"",
+							"let expectedBodyString = pm.collectionVariables.get(\"putWrittenData\");",
+							"let expectedBody = JSON.parse(expectedBodyString);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"GET response data matches the saved POST response\", function () {",
+							"    pm.expect(respBody).to.deep.equal(expectedBody);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/:collection/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						":collection",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "collection",
+							"value": "{{collectionName}}"
+						},
+						{
+							"key": "id",
+							"value": "{{docId}}"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Document",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let respBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected message\", function () {\r",
+							"    pm.expect(respBody.message).to.eql(\"Документ видалено\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Deleted document has correct _id\", function () {\r",
+							"    pm.expect(respBody.deletedDocument._id).to.eql(pm.collectionVariables.get(\"docId\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains a valid structure\", function () {\r",
+							"    pm.expect(respBody).to.have.property(\"message\");\r",
+							"    pm.expect(respBody).to.have.property(\"deletedDocument\")\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/:collection/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						":collection",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "collection",
+							"value": "{{collectionName}}"
+						},
+						{
+							"key": "id",
+							"value": "{{docId}}"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Find all Documents with Skip/Limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Document count matches the 'limit' parameter\", function () {",
+							"    let jsonData = pm.response.json();",
+							"    let expectedLimitString = pm.request.url.query.get('limit');",
+							"    if (!expectedLimitString) {",
+							"        console.warn(\"Test skipped: 'limit' parameter not found in the URL.\");",
+							"        return;",
+							"    }",
+							"    let expectedLimit = parseInt(expectedLimitString);",
+							"    pm.expect(jsonData.length).to.equal(expectedLimit);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/{{collectionName}}?limit=1&skip=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"{{collectionName}}"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "skip",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Find all Documents by parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"All documents match filtering parameters\", function () {",
+							"    let response = pm.response.json();",
+							"    let expectedPropertyType = pm.request.url.query.get('property_type');",
+							"    let expectedBedrooms = pm.request.url.query.get('bedrooms');",
+							"    let expectedBeds = pm.request.url.query.get('beds');",
+							"    pm.expect(response.length).to.be.above(0,",
+							"        \"The response array is empty (0 documents found).\"",
+							"    );",
+							"    pm.expect(response.length).to.be.above(0, \"The response array is empty. Check if the filter criteria are too strict.\");",
+							"    response.forEach((doc, index) => {",
+							"        if (expectedPropertyType) {",
+							"            pm.expect(",
+							"                doc.property_type.toLowerCase(),",
+							"                `Document at index ${index} failed 'property_type' check.`",
+							"            ).to.include(expectedPropertyType.toLowerCase());",
+							"        }",
+							"        if (expectedBedrooms) {",
+							"            pm.expect(",
+							"                doc.bedrooms,",
+							"                `Document at index ${index} failed 'bedrooms' check.`",
+							"            ).to.eql(parseInt(expectedBedrooms));",
+							"        }",
+							"        if (expectedBeds) {",
+							"            pm.expect(",
+							"                doc.beds,",
+							"                `Document at index ${index} failed 'beds' check.`",
+							"            ).to.eql(parseInt(expectedBeds));",
+							"        }",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "*"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/:collection/search/query?property_type=Loft&bedrooms=3&beds=3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						":collection",
+						"search",
+						"query"
+					],
+					"query": [
+						{
+							"key": "property_type",
+							"value": "Loft"
+						},
+						{
+							"key": "bedrooms",
+							"value": "3"
+						},
+						{
+							"key": "beds",
+							"value": "3"
+						}
+					],
+					"variable": [
+						{
+							"key": "collection",
+							"value": "{{collectionName}}"
+						}
+					]
+				},
+				"description": "Using the `/findOne` endpoint will let you retrieve a single document from a collection. Use the `filter` property in the request body to specify the search criteria. If more than one document matches the criteria, only the first match will be returned."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					" pm.collectionVariables.set(\"collectionName\", \"listingsAndReviews\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collectionName",
+			"value": ""
+		},
+		{
+			"key": "docId",
+			"value": ""
+		},
+		{
+			"key": "postWrittenData",
+			"value": ""
+		},
+		{
+			"key": "putWrittenData",
+			"value": ""
+		}
+	]
+}
